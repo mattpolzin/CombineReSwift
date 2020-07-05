@@ -7,6 +7,7 @@
 
 import Combine
 import ReSwift
+import Foundation
 
 extension ReSwift.Store: Combine.Subscriber {
     public typealias Input = ReSwift.Action
@@ -17,7 +18,9 @@ extension ReSwift.Store: Combine.Subscriber {
     }
 
     public func receive(_ input: Action) -> Subscribers.Demand {
-        self.dispatch(input)
+        DispatchQueue.main.async {
+            self.dispatch(input)
+        }
         return .unlimited
     }
 
